@@ -49,7 +49,7 @@
       },
       {
         "tab": "API reference",
-        "openapi": "https://petstore3.swagger.io/api/v3/openapi.json"
+        "openapi": "https://gist.githubusercontent.com/BRAVO68WEB/6450194cced56d2d3bd0d757be76de7a/raw/8aaa3658c48b9c7cadcd8b95aec68fee646efa37/openapi.yaml"
       }
     ],
     "global": {
