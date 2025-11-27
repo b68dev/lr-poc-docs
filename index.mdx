@@ -1,97 +1,160 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Getting Started"
+description: "Welcome to the LoginRadius API! This guide will help you get started with making your first API calls and integrating LoginRadius into your application."
 ---
 
-## Setting up
+## **Overview**
 
-Get your documentation site up and running in minutes.
+The LoginRadius API provides a comprehensive set of endpoints for managing user identities, authentication, and account management. The API supports:
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+- **Account Management**: Create, update, and manage user accounts
+- **Authentication**: Handle user login, registration, and authentication flows
+- **Session Management**: Manage user sessions and access tokens
+- **Security**: Implement multi-factor authentication, password policies, and security features
+- **Custom Objects**: Store and manage custom data associated with user accounts
+- **Roles Management**: Manage user roles and permissions
 
-## Make it yours
+### **Base URLs**
 
-Design a docs site that looks great and empowers your users.
+The API is available at the following base URLs:
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+- **Production**: `https://api.loginradius.com/identity/v2/manage`
+- **Hosted Page Server**: `https://{domain}.hub.loginradius.com/identity/v2/manage`
+- **Custom Domain**: `https://{customDomain}/identity/v2/manage`
 
-## Create beautiful pages
+## **Prerequisites**
 
-Everything you need to create world-class documentation.
+Before you begin, ensure you have:
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+1. **A LoginRadius Account**: Sign up at [**<u>https://www.loginradius.com</u>**](https://www.loginradius.com/) if you don't have one
+2. **Access to LoginRadius Console**: You'll need access to [**<u>https://console.loginradius.com</u>**](https://console.loginradius.com/)
+3. **API Credentials**: You'll need either:
+   - API Key and API Secret, or
+   - M2M Client ID and Client Secret
+4. **HTTP Client**: A tool to make HTTP requests (curl, Postman, or your preferred HTTP client)
+5. **Basic Understanding**: Familiarity with REST APIs and JSON
 
-## Need inspiration?
+## **Quick Start**
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+Follow these steps to make your first API call:
+
+### **Step 1: Get Your API Credentials**
+
+1. Log in to the [**<u>LoginRadius Console</u>**](https://console.loginradius.com/)
+2. Click the ⚙️ icon on the right side of your Tenant Name
+3. Copy your **API Key** and **API Secret**
+
+   💡 **Tip**: You can also find these at https://console.loginradius.com/tenant/settings
+
+### **Step 2: Make Your First API Call**
+
+Let's retrieve account information using the API Key and Secret:
+
+```
+curl -X GET "https://api.loginradius.com/identity/v2/manage/account?apikey=YOUR_API_KEY&apisecret=YOUR_API_SECRET&email=user@example.com"
+```
+
+Or using headers:
+
+```
+curl -X GET "https://api.loginradius.com/identity/v2/manage/account?email=user@example.com" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET"
+```
+
+### **Step 3: Verify the Response**
+
+If successful, you'll receive a JSON response with account information. If you get an authentication error, double-check your API credentials.
+
+## **Setting Up Authentication**
+
+LoginRadius API supports multiple authentication methods depending on your use case:
+
+📖 **For detailed authentication information**, see [**<u>here</u>**](https://enticing-speaker-gkqva.apidocumentation.com/authorization)
+
+## **Making Your First API Call**
+
+### **Example 1: Get Account by Email**
+
+Retrieve a user account using their email address:
+
+```
+curl -X GET "https://api.loginradius.com/identity/v2/manage/account?email=user@example.com" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET"
+```
+
+**Response:**
+
+```
+{  "Uid": "abc123...",  "Email": [    {      "Type": "Primary",      "Value": "user@example.com"    }  ],  "FirstName": "John",  "LastName": "Doe",  ...}
+```
+
+### **Example 2: Get Account by UID**
+
+Retrieve a user account using their unique identifier:
+
+```
+curl -X GET "https://api.loginradius.com/identity/v2/manage/account/USER_UID" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET"
+```
+
+### **Example 3: Using M2M Bearer Token**
+
+First, obtain a Bearer Token:
+
+```
+curl -X POST "https://api.loginradius.com/identity/v2/oauth/token" \  -H "Content-Type: application/x-www-form-urlencoded" \  -d "grant_type=client_credentials&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET"
+```
+
+Then use the token in your API calls:
+
+```
+curl -X GET "https://api.loginradius.com/identity/v2/manage/account?email=user@example.com" \  -H "Authorization: Bearer YOUR_BEARER_TOKEN"
+```
+
+### **Example 4: Using Access Token (CIAM)**
+
+For customer-facing operations, use the access token obtained after user login:
+
+```
+curl -X GET "https://api.loginradius.com/identity/v2/manage/account?access_token=USER_ACCESS_TOKEN"
+```
+
+## **Common Use Cases**
+
+### **Use Case 1: Retrieve User Account Information**
+
+```
+# Get account by emailcurl -X GET "https://api.loginradius.com/identity/v2/manage/account?email=user@example.com" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET"
+```
+
+### **Use Case 2: Update User Profile**
+
+```
+curl -X PUT "https://api.loginradius.com/identity/v2/manage/account/USER_UID" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET" \  -H "Content-Type: application/json" \  -d '{    "FirstName": "Jane",    "LastName": "Smith"  }'
+```
+
+### **Use Case 3: Manage User Sessions**
+
+```
+# Get access token informationcurl -X GET "https://api.loginradius.com/identity/v2/manage/account/access_token?access_token=USER_ACCESS_TOKEN" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET"# Refresh access tokencurl -X GET "https://api.loginradius.com/identity/v2/manage/account/access_token/refresh?refresh_token=REFRESH_TOKEN" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET"
+```
+
+### **Use Case 4: Manage User Security**
+
+```
+# Update user passwordcurl -X PUT "https://api.loginradius.com/identity/v2/manage/account/USER_UID/password" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET" \  -H "Content-Type: application/json" \  -d '{    "password": "NewSecurePassword123!"  }'
+```
+
+### **Use Case 5: Work with Custom Objects**
+
+```
+# Get custom objects for a usercurl -X GET "https://api.loginradius.com/identity/v2/manage/account/USER_UID/customobject" \  -H "X-LoginRadius-ApiKey: YOUR_API_KEY" \  -H "X-LoginRadius-ApiSecret: YOUR_API_SECRET"
+```
+
+## **Security Best Practices**
+
+1. **Never expose secrets in client-side code** - API secrets should only be used server-side
+2. **Use HTTPS** - Always make API requests over HTTPS
+3. **Store credentials securely** - Use environment variables or secure credential management
+4. **Rotate credentials regularly** - Periodically update your API keys and secrets
+5. **Use M2M tokens for production** - Prefer M2M authentication for server-to-server communication
+6. **Validate and sanitize input** - Always validate user input before sending to the API
+7. **Implement error handling** - Handle API errors gracefully in your application
+8. **Monitor API usage** - Set up logging and monitoring for API calls
