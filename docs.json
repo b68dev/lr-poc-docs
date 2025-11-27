@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "LoginRadius API Docs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#008ecf",
+    "light": "#00aeff",
+    "dark": "#00aeff"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -17,8 +17,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/lr-logo.svg",
+    "dark": "/logo/lr-logo.svg"
   },
   "navbar": {
     "links": [
